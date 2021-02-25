@@ -8,7 +8,7 @@ import (
 
 type Engine struct{}
 
-// 这里将结构体指针绑定了函数，实现函数赋值变量
+// 这里将结构体指针定为函数方法的接收器，在函数方法中的操作可以改变Engine的值，参考https://www.runoob.com/go/go-method.html
 func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	switch req.URL.Path {
 	case "/":

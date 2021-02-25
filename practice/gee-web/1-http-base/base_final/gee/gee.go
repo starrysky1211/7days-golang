@@ -12,6 +12,7 @@ type Engine struct {
 }
 
 func New() *Engine {
+	// 通过make创建一个不定长的map，也可以事先指定一个初始容量以提升效率，容量不足也会自动扩容： make(map[string]HandleFunc, [int]cap), cap为容量
 	return &Engine{router: make(map[string]HandlerFunc)}
 }
 
@@ -30,6 +31,7 @@ func (engine *Engine) POST(pattern string, handler HandlerFunc) {
 
 func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	key := req.Method + "-" + req.URL.Path
+	// 固定句式，可以通过ok判断键值对是否存在在map中
 	if handler, ok := engine.router[key]; ok {
 		handler(w, req)
 	} else {
